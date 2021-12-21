@@ -1,0 +1,72 @@
+---
+title: "gene data"
+author: "Sowmya"
+date: "12/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+library(tidyverse)
+```
+
+
+```{R}
+library(SpatialExperiment)
+library(STexampleData)
+
+
+```
+
+```{R }
+spe <- Visium_humanDLPFC_3_13()
+spe
+```
+
+
+```{r}
+matr = as.matrix(counts(spe))
+df = as.data.frame(matr)
+df <- cbind(rownames(df), df)
+rownames(df) <- NULL
+colnames(df)[1] <- 'geneid'
+```
+
+```{R}
+colnames(df)[1]
+```
+
+
+```{R }
+df = df |>pivot_longer(!geneid, names_to = "spotid", values_to = "count")
+df = df[1:100000, ]
+```
+
+```{R }
+write.csv(df, 'D:\\HW2 ADV DS II\\counts.csv', row.names= TRUE )
+
+```
+```{R }
+head(df)
+```
+```{R }
+type(df$spotid)
+
+```
+```{R }
+rowdata = as.data.frame(rowData(spe))
+```
+
+```{R}
+write.csv(rowdata, 'D:\\HW2 ADV DS II\\rowdata.csv', row.names= FALSE)
+```
+
+
+```{R }
+coldata = as.data.frame(colData(spe))
+#write.csv(c, 'D:\\HW2 ADV DS II\\rowdata.csv', row.names= FALSE)
+```
+
+```{R }
+write.csv(coldata, 'D:\\HW2 ADV DS II\\coldata.csv', row.names= FALSE)
+```

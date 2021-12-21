@@ -1,0 +1,63 @@
+---
+title: "Views"
+author: "Sowmya"
+date: "12/20/2021"
+output: html_document
+---
+
+```{sql,connection = con }
+CREATE VIEW U AS 
+
+SELECT institution_id, COUNT(*) as num_users FROM Users GROUP BY
+
+institution_id;
+
+
+```
+
+```{sql,connection = con }
+CREATE VIEW M AS 
+SELECT COUNT(*) AS mt, spotid FROM gene_counts, rowdata
+WHERE gene_id = geneid AND 
+gene_name LIKE '%mt%'
+GROUP BY spotid;
+
+```
+
+```{sql, connection = con}
+
+CREATE VIEW ZN AS 
+SELECT COUNT(cell_count) as nonzeros FROM coldata WHERE cell_count > 0
+
+```
+```
+```{sql,connection = con }
+
+CREATE VIEW N AS 
+SELECT COUNT(*) AS nonmt, spotid FROM gene_counts, rowdata
+WHERE gene_id = geneid AND 
+gene_name NOT LIKE '%mt%'
+GROUP BY spotid;
+
+```
+
+```{sql,connection = con }
+
+CREATE VIEW J AS SELECT institution_id FROM Users WHERE
+fname = 'Vicky' AND lname = 'Dyson' ;
+```
+
+```{sql, connection = con}
+
+CREATE VIEW Z AS 
+SELECT COUNT(cell_count) as zeros FROM coldata WHERE cell_count = 0;
+
+
+```
+
+```{sql, connection = con}
+
+CREATE VIEW N AS 
+SELECT COUNT(cell_count) as nonzeros FROM coldata WHERE cell_count > 0
+
+```
